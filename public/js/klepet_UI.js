@@ -1,12 +1,21 @@
 function divElementEnostavniTekst(sporocilo) {
   var slika = sporocilo.indexOf("<img style=") > -1;
   var jeSmesko = sporocilo.indexOf('http://sandbox.lavbic.net/teaching/OIS/gradivo/') > -1;
+  var youtube = sporocilo.indexOf('https://www.youtube.com') > -1;
   if (jeSmesko) {
     sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />');
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
+<<<<<<< HEAD
   }else if(slika){
     return $('<div style="font-weight: bold"></div>').html(sporocilo);
   } else {
+=======
+  } else if(youtube){
+    console.log("YouTube time!");
+    sporocilo = sporocilo.replace(/\</g, '&lt;').replace(/\>/g, '&gt;').replace('&lt;img', '<img').replace('png\' /&gt;', 'png\' />').replace(/\&lt;iframe/gi, '<iframe').replace(/allowfullscreen\&gt;/gi, 'allowfullscreen>').replace(/\&lt;\/iframe&gt;/gi,'</iframe>');
+    return $('<div style="font-weight: bold"></div>').html(sporocilo);
+  }else {
+>>>>>>> youtube
     return $('<div style="font-weight: bold;"></div>').text(sporocilo);
   }
 }
@@ -17,7 +26,11 @@ function divElementHtmlTekst(sporocilo) {
 
 function procesirajVnosUporabnika(klepetApp, socket) {
   var sporocilo = $('#poslji-sporocilo').val();
+<<<<<<< HEAD
   sporocilo = dodajSlika(sporocilo);
+=======
+  sporocilo = dodajYouTube(sporocilo);
+>>>>>>> youtube
   sporocilo = dodajSmeske(sporocilo);
   var sistemskoSporocilo;
 
@@ -152,7 +165,18 @@ function dodajSmeske(vhodnoBesedilo) {
   return vhodnoBesedilo;
 }
 
+<<<<<<< HEAD
 function dodajSlika(vhodnoBesedilo) {
   return vhodnoBesedilo.replace(/((http|https):\/\/[^\s]*(?:jpg|png|gif))/gi,
   "$1 <br><img style=\"width:200px; margin-left:20px;\" src=\"$1\" \/><br>");
+=======
+function dodajYouTube(vhodnoBesedilo){
+  //var tab = vhodnoBesedilo.split(' ');
+  
+  vhodnoBesedilo = vhodnoBesedilo.replace(/(https:\/\/www\.youtube\.com\/watch\?v=\S+)/g, '$1 <br> <iframe src ="$1" width="200" height="150" style="margin-left: 20px;"  allowfullscreen></iframe> <br>')
+  vhodnoBesedilo = vhodnoBesedilo.replace(/(watch\?v=)/g, 'embed/');
+ 
+  return vhodnoBesedilo;
+  
+>>>>>>> youtube
 }
