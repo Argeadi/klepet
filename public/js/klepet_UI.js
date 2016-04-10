@@ -112,6 +112,15 @@ $(document).ready(function() {
     
   });
 
+socket.on('dregljaj', function(vzdevek) {
+  //Inicializacija
+  $('#vsebina').jrumble();
+  $('#vsebina').trigger('startRumble');    //start
+  setTimeout(function() {
+    $('#vsebina').trigger('stopRumble');
+  }, 1500); //1.5s
+  });
+
   setInterval(function() {
     socket.emit('kanali');
     socket.emit('uporabniki', {kanal: trenutniKanal});
